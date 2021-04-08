@@ -1,0 +1,31 @@
+name: automerge
+on:
+  pull_request:
+    types:
+      - labeled
+  status: {}
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for CI build
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: wait-for-build
+        with:
+          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+          checkName: build-test
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          timeoutSeconds: 1200
+          intervalSeconds: 30
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.13.1"
+        with:
+          args: "--trace"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+          MERGE_LABELS: "automerge"
+          MERGE_COMMIT_MESSAGE: "Automerge with Github Workflow"
+          MERGE_RETRIES: "2"
+          MERGE_RETRY_SLEEP: "10000"
+          MERGE_DELETE_BRANCH: "true"
+          MERGE_METHOD: "merge"
