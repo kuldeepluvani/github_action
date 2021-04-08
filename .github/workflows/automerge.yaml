@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Wait for CI build
         uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-build
+        id: CI
         with:
           token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
           checkName: build-test
