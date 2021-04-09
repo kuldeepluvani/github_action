@@ -8,15 +8,13 @@ jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for CI build
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: CI
-        with:
-          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-          checkName: build-test
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          timeoutSeconds: 1200
-          intervalSeconds: 30
+      - uses: actions/checkout@v2
+      - name: Add SHORT_SHA env property with commit short sha
+      id: git_vars
+      shell: bash
+      run: |
+        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: automerge
         uses: "pascalgn/automerge-action@v0.13.1"
         with:
