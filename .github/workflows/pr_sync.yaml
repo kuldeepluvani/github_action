@@ -2,6 +2,7 @@ name: pysync
 on:
   pull_request:
     types:
+      - opened
       - synchronize
 jobs:
   # This workflow contains a single job called "build"
