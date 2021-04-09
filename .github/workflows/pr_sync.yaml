@@ -1,4 +1,4 @@
-name: automerge
+name: pysync
 on:
   pull_request:
     types:
