@@ -1,8 +1,9 @@
 name: automerge
 on:
-  pull_request:
-    types:
-      - labeled
+  workflow_dispatch:
+#  pull_request:
+#    types:
+#      - labeled
   status: {}
 jobs:
   automerge:
